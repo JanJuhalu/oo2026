@@ -11,14 +11,11 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Film {
+public class Rental {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String title;
-    private FilmType type; //enum --> kindlaksmääratud väärtuste hulgast saan valida
-    private int days; //mitu päeva on renditud 0 - available
+    private double initialFee;
+    private double lateFee;
 
-    @ManyToOne//ühes rentalis võib olla mitu filmi
-    private Rental rental;
 }
