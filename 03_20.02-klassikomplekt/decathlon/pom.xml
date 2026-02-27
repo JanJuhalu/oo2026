@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>ee.jmjuhalu</groupId>
-	<artifactId>veebipood</artifactId>
+	<artifactId>decathlon</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>veebipood</name>
-	<description>OOP2026 veebipood</description>
+	<description>OOP2026 kodutöö</description>
 	<url/>
 	<licenses>
 		<license/>
