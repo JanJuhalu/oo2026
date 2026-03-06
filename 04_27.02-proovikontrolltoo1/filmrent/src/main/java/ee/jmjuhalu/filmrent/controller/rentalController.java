@@ -21,7 +21,7 @@ import static ee.jmjuhalu.filmrent.entity.FilmType.*;
 public class rentalController {
 
     private final filmRepository filmRepository;
-    private rentalRepository rentalRepository;
+    private final rentalRepository rentalRepository;
     private double premiumPrice = 4;
     private double basicPrice = 3;
 
@@ -82,7 +82,26 @@ public class rentalController {
         for (FilmRentalDto filmRentalDto : filmRentalDtos){
             Film dbFilm = filmRepository.findById(filmRentalDto.filmId()).orElseThrow();
             Rental rental =dbFilm.getRental();
-            rental.setLateFee(rental.getLateFee() + FILMI_SUMMA);
+            switch (dbFilm.getType()){
+                case NEW -> sum += premiumPrice * filmRentalDto.days();
+
+                case REGULAR -> {
+                    if (filmRentalDto.days() <= 3){
+                        sum += basicPrice;
+                    } else {
+                        sum += basicPrice + basicPrice * (filmRentalDto.days() - 3);
+                    }
+                }
+
+                case OLD -> {
+                    if (filmRentalDto.days() <= 5){
+                        sum += basicPrice;
+                    } else {
+                        sum += basicPrice + basicPrice * (filmRentalDto.days() - 5);
+                    }
+                }
+            }
+            rental.setLateFee(rental.getLateFee() + sum);
             rentalRepository.save(rental);
 
             dbFilm.setRental(null);
