@@ -9,12 +9,19 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "*")
 @RestController
 @AllArgsConstructor
 public class SportlaneController {
 
     private SportlaneRepository sportlaneRepository;
     private SportlaneService sportlaneService;
+
+    // Küsi kõik sportlased
+    @GetMapping("sportlased")
+    public List<Sportlane> saaSportlased() {
+        return sportlaneRepository.findAll();
+    }
 
     // Lisa uus sportlane
     @PostMapping("sportlased")
@@ -29,6 +36,13 @@ public class SportlaneController {
         }
 
         sportlaneRepository.save(sportlane);
+        return sportlaneRepository.findAll();
+    }
+
+    // Kustuta sportlane
+    @DeleteMapping("sportlased/{id}")
+    public List<Sportlane> kustutaSportlane(@PathVariable Long id) {
+        sportlaneRepository.deleteById(id);
         return sportlaneRepository.findAll();
     }
 
