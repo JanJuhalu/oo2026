@@ -18,8 +18,8 @@ public class Sportlane {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String nimi;
+    private String riik;
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<Tulemus> tulemused;
